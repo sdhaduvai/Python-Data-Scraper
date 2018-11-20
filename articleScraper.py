@@ -6,7 +6,7 @@ import csv
 import time
 import os
 
-ignore_keywords = ["entertainment", "sports", "video", "tech", "radio", "asia"]
+ignore_keywords = ["sports", "video", "radio", "asia"]
 
 """
 gets the links of every gun related article in breitbart.com and rushlimbaugh.com
