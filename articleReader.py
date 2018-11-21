@@ -35,7 +35,9 @@ def insert_into_documents_dict(article, documents_dict_list, keyword):
     document_dict['document path'] = "articles\gun_articles\\" + re.sub('\\n','', article.title)
     document_dict['word count'] = len(article.text.split())
     document_dict['url'] = article.url
-    documents_dict_list.append(document_dict)
+
+    if documents_dict_list[-1].['document id'] != document_dict['document id']:  
+        documents_dict_list.append(document_dict)
 
 """
 checks each sentence in the article for keywords and makes an entry in the passage_dict if found
@@ -56,6 +58,7 @@ def save_passages(article, passages_dict_list):
                 passages_dict["prior-context"] = re.sub('\\n','', sentences[i-1])
                 passages_dict["after-context"] = re.sub('\\n','', sentences[i+1])
                 passages_dict['url'] = article.url
+                
                 passages_dict_list.append(passages_dict)
 
 """
