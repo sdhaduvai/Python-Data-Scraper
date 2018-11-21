@@ -27,12 +27,12 @@ def get_all_articles():
             if "gun" in headline.lower():
                 count += 1
                 articles_to_read.append(link)
-                print("Found an article: " + headline)
+                print("On page: " + str(page_no) + ", found article: " + headline)
 
         page_no += 1
     
     print("\n*****\n")
-    
+
     count = 0
     page_no = 1
     minimum_no_of_articles = 20
@@ -49,7 +49,7 @@ def get_all_articles():
             if "gun" in headline.lower():
                 count += 1
                 articles_to_read.append(link)
-                print("Found an article: " + headline)
+                print("On page: " + str(page_no) + ", found article: " + headline)
 
         page_no += 1
 
