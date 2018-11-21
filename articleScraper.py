@@ -14,7 +14,7 @@ def get_all_articles():
     count = 0
     page_no = 1
     max_page_no = 99
-    minimum_no_of_articles = 0
+    minimum_no_of_articles = 150
     print("Searching for articles in breitbart.com")
     while(count < minimum_no_of_articles and page_no <= max_page_no):
         response = requests.get("https://www.breitbart.com/news/source/breitbart-news/page/" + str(page_no) + "/")
@@ -35,7 +35,7 @@ def get_all_articles():
     print("\n*****\n")
 
     count = 0
-    page_no = 4000
+    page_no = 1
     minimum_no_of_articles = 20
     print("Searching for articles in rushlimbaugh.com")
     while(count < minimum_no_of_articles):
