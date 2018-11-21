@@ -16,7 +16,7 @@ def save_article(article):
     # removes any special characters from the title  
     cleanString = re.sub('\W+',' ', title)
     path = os.path.join(dest_dir, cleanString)
-    f = open(path+".txt", 'w')
+    f = open(path+".txt", 'w', encoding = 'utf-8')
     f.write(article.text)
     f.close
 
