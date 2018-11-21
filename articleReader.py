@@ -36,7 +36,7 @@ def insert_into_documents_dict(article, documents_dict_list, keyword):
     document_dict['word count'] = len(article.text.split())
     document_dict['url'] = article.url
 
-    if documents_dict_list[-1].['document id'] != document_dict['document id']:  
+    if documents_dict_list[-1]['document id'] != document_dict['document id']:  
         documents_dict_list.append(document_dict)
 
 """

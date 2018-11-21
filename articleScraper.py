@@ -13,9 +13,10 @@ def get_all_articles():
 
     count = 0
     page_no = 1
-    minimum_no_of_articles = 150
+    max_page_no = 99
+    minimum_no_of_articles = 0
     print("Searching for articles in breitbart.com")
-    while(count < minimum_no_of_articles):
+    while(count < minimum_no_of_articles and page_no <= max_page_no):
         response = requests.get("https://www.breitbart.com/news/source/breitbart-news/page/" + str(page_no) + "/")
         html = response.text
         soup = bs4.BeautifulSoup(html, "html.parser")        
@@ -34,7 +35,7 @@ def get_all_articles():
     print("\n*****\n")
 
     count = 0
-    page_no = 1
+    page_no = 4000
     minimum_no_of_articles = 20
     print("Searching for articles in rushlimbaugh.com")
     while(count < minimum_no_of_articles):
@@ -43,6 +44,9 @@ def get_all_articles():
         soup = bs4.BeautifulSoup(html, "html.parser")
 
         content = soup.find_all(class_ = "entry-title")
+        if(not content):
+            print("No more articles to read")
+            break
         for element in content:
             link = element.find("a").get("href")
             headline = element.find("a").contents[0]
