@@ -36,7 +36,7 @@ def get_all_articles():
 
     count = 0
     page_no = 1
-    minimum_no_of_articles = 20
+    minimum_no_of_articles = 50
     print("Searching for articles in rushlimbaugh.com")
     while(count < minimum_no_of_articles):
         response = requests.get("https://www.rushlimbaugh.com/archives/page/" + str(page_no) + "/")
@@ -49,7 +49,10 @@ def get_all_articles():
             break
         for element in content:
             link = element.find("a").get("href")
-            headline = element.find("a").contents[0]
+            try:
+                headline = element.find("a").contents[0]
+            except:
+                break
             if "gun" in headline.lower():
                 count += 1
                 articles_to_read.append(link)
