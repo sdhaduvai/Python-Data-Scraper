@@ -1,5 +1,6 @@
 import os
 import newspaper
+import time
 
 import articleScraper
 import articleReader
