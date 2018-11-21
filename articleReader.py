@@ -36,7 +36,10 @@ def insert_into_documents_dict(article, documents_dict_list, keyword):
     document_dict['word count'] = len(article.text.split())
     document_dict['url'] = article.url
 
-    if documents_dict_list[-1]['document id'] != document_dict['document id']:  
+    try:
+        if documents_dict_list[-1]['document id'] != document_dict['document id']:  
+            documents_dict_list.append(document_dict)
+    except:
         documents_dict_list.append(document_dict)
 
 """
@@ -48,7 +51,7 @@ def save_passages(article, passages_dict_list):
     sentences = article.text.split(".")
     for i, sentence in enumerate(sentences):
         for keyword in keywords:
-            if keyword in sentence:
+            if keyword in sentence.lower():
                 # dictionary 
                 passages_dict = dict.fromkeys(["passage id", "document id", "keyword", "content", "prior-context", "after-context", "url"])
                 passages_dict["passage id"] = "passage " + str(i)
@@ -71,7 +74,7 @@ def read_and_save(article, passages_dict_list, documents_dict_list):
     sentences = article.text.split(".")
     for i, sentence in enumerate(sentences):
         for keyword in keywords:
-            if keyword in sentence:
+            if keyword in sentence.lower():
                 save_article(article)
                 save_passages(article, passages_dict_list)
                 insert_into_documents_dict(article, documents_dict_list, keyword)

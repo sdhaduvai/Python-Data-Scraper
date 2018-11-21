@@ -2,7 +2,7 @@ import csv
 
 def write_passages_to_csv(passages):
     with open("passages.csv", 'w') as f_out:
-        out_colnames = ["passage id", "document id", "keyword", "content", "prior-context", "after-context"]
+        out_colnames = ["passage id", "document id", "keyword", "content", "prior-context", "after-context", "url"]
         csv_writer = csv.DictWriter(f_out, fieldnames = out_colnames)
         csv_writer.writeheader()
         for row in passages:
