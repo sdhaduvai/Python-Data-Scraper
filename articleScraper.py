@@ -1,10 +1,6 @@
 import newspaper
-import urllib
 import bs4
 import requests
-import csv
-import time
-import os
 
 ignore_keywords = ["sports", "video", "radio", "asia"]
 
@@ -15,17 +11,32 @@ def get_all_articles():
     all_articles = []
     articles_to_read = []
 
-    breitbart = newspaper.build("https://www.breitbart.com/", memoize_articles=False)
-    for article in breitbart.articles:
-        all_articles.append(article.url)
-    
+    count = 0
+    page_no = 1
+    minimum_no_of_articles = 150
+    print("Searching for articles in breitbart.com")
+    while(count < minimum_no_of_articles):
+        response = requests.get("https://www.breitbart.com/news/source/breitbart-news/page/" + str(page_no) + "/")
+        html = response.text
+        soup = bs4.BeautifulSoup(html, "html.parser")        
 
-    filter_func = lambda s: "https://www.breitbart.com/" in s and not any(category in s for category in ignore_keywords)
-    articles_to_read = [line for line in all_articles if filter_func(line)]
+        content = soup.find_all(class_ = "article-content")
+        for element in content:
+            link = element.find("a").get("href")
+            headline = element.find("a").contents[0]
+            if "gun" in headline.lower():
+                count += 1
+                articles_to_read.append(link)
+                print("Found an article: " + headline)
+
+        page_no += 1
+    
+    print("\n*****\n")
     
     count = 0
     page_no = 1
-    minimum_no_of_articles = 10
+    minimum_no_of_articles = 20
+    print("Searching for articles in rushlimbaugh.com")
     while(count < minimum_no_of_articles):
         response = requests.get("https://www.rushlimbaugh.com/archives/page/" + str(page_no) + "/")
         html = response.text
@@ -34,9 +45,11 @@ def get_all_articles():
         content = soup.find_all(class_ = "entry-title")
         for element in content:
             link = element.find("a").get("href")
-            if "gun" in link:
+            headline = element.find("a").contents[0]
+            if "gun" in headline.lower():
                 count += 1
                 articles_to_read.append(link)
+                print("Found an article: " + headline)
 
         page_no += 1
 

@@ -10,7 +10,7 @@ def write_passages_to_csv(passages):
 
 def write_documents_to_csv(documents):
     with open("documents.csv", 'w') as f_out:
-        out_colnames = ['document id', 'keyword', 'document title', 'document publication date', 'document path', 'word count']
+        out_colnames = ['document id', 'keyword', 'document title', 'document publication date', 'document path', 'word count', 'url']
         csv_writer = csv.DictWriter(f_out, fieldnames = out_colnames)
         csv_writer.writeheader()
         for row in documents:

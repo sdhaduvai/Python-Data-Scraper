@@ -16,8 +16,8 @@ def save_article(article):
     # removes any special characters from the title  
     cleanString = re.sub('\W+',' ', title)
     path = os.path.join(dest_dir, cleanString)
-    f = open(path+".html", 'w')
-    f.write(article.html)
+    f = open(path+".txt", 'w')
+    f.write(article.text)
     f.close
 
 """
@@ -27,13 +27,14 @@ inserts the document entry into the documents_dict_list
 @param keyword: keyword on which the document was obtained
 """
 def insert_into_documents_dict(article, documents_dict_list, keyword):
-    document_dict = dict.fromkeys(['document id', 'keyword', 'document title', 'document publication date', 'document path', 'word count'])
+    document_dict = dict.fromkeys(['document id', 'keyword', 'document title', 'document publication date', 'document path', 'word count', 'url'])
     document_dict['document id'] = article.title
     document_dict['keyword'] = keyword
     document_dict['document title'] = article.title 
     document_dict['document publication date'] = article.publish_date
     document_dict['document path'] = "articles\gun_articles\\" + re.sub('\\n','', article.title)
     document_dict['word count'] = len(article.text.split())
+    document_dict['url'] = article.url
     documents_dict_list.append(document_dict)
 
 """
