@@ -48,13 +48,14 @@ def save_passages(article, passages_dict_list):
         for keyword in keywords:
             if keyword in sentence:
                 # dictionary 
-                passages_dict = dict.fromkeys(["passage id", "document id", "keyword", "content", "prior-context", "after-context"])
+                passages_dict = dict.fromkeys(["passage id", "document id", "keyword", "content", "prior-context", "after-context", "url"])
                 passages_dict["passage id"] = "passage " + str(i)
                 passages_dict["document id"] = article.title
                 passages_dict["keyword"] = keyword
                 passages_dict["content"] = re.sub('\\n','', sentence)
                 passages_dict["prior-context"] = re.sub('\\n','', sentences[i-1])
                 passages_dict["after-context"] = re.sub('\\n','', sentences[i+1])
+                passages_dict['url'] = article.url
                 passages_dict_list.append(passages_dict)
 
 """
